@@ -28,7 +28,7 @@
 // this is no_run because we can't make doctests run literal tests
 // and because this macro generates tests, we can't actually test them here
 /// ```no_run
-/// # #[macro_use] extern crate aoc2022;
+/// # #[macro_use] extern crate aoc2023;
 /// pub fn gen(input: &[usize]) -> Vec<usize> {
 ///     input.to_owned()
 /// }
