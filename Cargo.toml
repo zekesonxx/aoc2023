@@ -1,0 +1,24 @@
+[package]
+name = "aoc2023"
+version = "0.1.0"
+authors = ["Zoey Mertes <zmertes@zmertes.net>"]
+license = "Apache-2.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+rayon = "1.6.0"
+nom = "7.1.1"
+aoc-runner = "0.3.0"
+aoc-runner-derive = "0.3.0"
+lazy_static = "1.4.0"
+petgraph = "0.6.2"
+itertools = "0.10.5"
+anyhow = "1.0.66"
+indoc = "1.0.7"
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+panic = 'abort'
