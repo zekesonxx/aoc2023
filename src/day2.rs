@@ -63,8 +63,8 @@ pub fn part1(input: &[(usize, Vec<Vec<Cubes>>)]) -> usize {
 					Green => cubes.count > real_green,
 					Blue => cubes.count > real_blue
 				} {
-					println!("breaking on game {} on grab {grab:?}", game.0);
-					println!("  due to {} {:?}", cubes.count, cubes.color);
+					//println!("breaking on game {} on grab {grab:?}", game.0);
+					//println!("  due to {} {:?}", cubes.count, cubes.color);
 					continue 'game;
 				}
 			}
@@ -89,7 +89,7 @@ pub fn part2(input: &[(usize, Vec<Vec<Cubes>>)]) -> usize {
 				}
 			}
 		}
-		println!("game {} must've needed: {r} r, {g} g, {b} b", game.0);
+		//println!("game {} must've needed: {r} r, {g} g, {b} b", game.0);
 		games += r*g*b;
 	}
 	games

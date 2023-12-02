@@ -10,7 +10,7 @@ pub fn part1(input: &[String]) -> usize {
 		let mut c = line.chars().filter(|x| x.is_ascii_digit());
 		let first = c.next().unwrap();
 		let last = c.last().unwrap_or(first);
-		println!("{line}: {first}{last}");
+		//println!("{line}: {first}{last}");
 		i += format!("{first}{last}").parse::<usize>().unwrap_or_default();
 	}
 	i
@@ -42,7 +42,7 @@ pub fn part2(input: &[String]) -> usize {
 		}
 		let first = numbers[0];
 		let last = numbers.last().unwrap_or(&first);
-		println!("{line}: {first}{last}");
+		//println!("{line}: {first}{last}");
 		i += (first*10) + last;
 	}
 	i
