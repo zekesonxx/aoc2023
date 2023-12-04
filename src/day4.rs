@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 #[aoc_generator(day4)]
 pub fn gen(input: &str) -> Vec<(Vec<usize>, Vec<usize>)> {
         input.split('\n')
@@ -56,6 +58,39 @@ pub fn part2(input: &[(Vec<usize>, Vec<usize>)]) -> usize {
 	count
 }
 
+#[aoc(day4, part2, caching)]
+pub fn part2_caching(input: &[(Vec<usize>, Vec<usize>)]) -> usize {
+	let mut cards = vec![];
+	for (i, _) in input.iter().enumerate() {
+		cards.push(i+1);
+	}
+	let mut count = 0;
+	let mut cache: HashMap<usize, Vec<usize>> = HashMap::new();
+	while let Some(card) = cards.pop() {
+		count += 1;
+		if let Some(cached) = cache.get(&card) {
+			for card in cached {
+				cards.push(*card);
+			}
+		} else {
+			let (win, have) = &input[card-1];
+			let mut to_cache = vec![];
+			let mut line_score = 0;
+			for number in have {
+				if win.contains(&number) {
+					line_score += 1;
+				}
+			}
+			for i in 1..=line_score {
+				cards.push(card+i);
+				to_cache.push(card+i);
+			}
+			cache.insert(card, to_cache);
+		}
+	}
+	count
+}
+
 #[cfg(test)]
 mod tests {
 	const EXAMPLE: &'static str = indoc!{"Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -68,6 +103,6 @@ mod tests {
 	aoc_tests!(day 4 sample1, EXAMPLE=13; gen:part1);
 	aoc_tests!(day 4 part1, puzzle=33950; gen:part1);
 
-	aoc_tests!(day 4 sample2, EXAMPLE=30; gen:part2);
-	aoc_tests!(day 4 part2, puzzle=14814534; gen:part2);
+	aoc_tests!(day 4 sample2, EXAMPLE=30; gen:part2, gen:part2_caching);
+	aoc_tests!(day 4 part2, puzzle=14814534; gen:part2, gen:part2_caching);
 }
