@@ -70,7 +70,7 @@ macro_rules! aoc_tests {
 		mod $ident {
 			lazy_static! {
 				static ref INPUT: &'static str = {
-					include_str!(concat!("../input/2022/day", $day, ".txt")).trim_end_matches('\n')
+					include_str!(concat!("../input/2023/day", $day, ".txt")).trim_end_matches('\n')
 				};
 			}
 			$(
