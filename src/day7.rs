@@ -1,8 +1,5 @@
 use std::{collections::HashMap, str::FromStr, cmp::Ordering};
 
-use itertools::Itertools;
-
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub enum Card {
 	Ace,
@@ -35,9 +32,9 @@ impl Card {
 }
 
 impl From<char> for Card {
-    fn from(value: char) -> Self {
+	fn from(value: char) -> Self {
 		use Card::*;
-        match value {
+		match value {
 			'A' => Ace,
 			'K' => King,
 			'Q' => Queen,
@@ -53,7 +50,7 @@ impl From<char> for Card {
 			'2' => Two,
 			_ => panic!("{value} is not a camel card")
 		}
-    }
+	}
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -62,25 +59,25 @@ pub struct Hand {
 }
 
 impl FromStr for Hand {
-    type Err = &'static str;
+	type Err = &'static str;
 
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
 		let s = s.trim();
 		if s.len() != 5 {
 			return Err("hand is not 5 characters");
 		}
 		let mut iter = s.chars().map(|x| x.into());
 		let hand: [Card; 5] = [iter.next().unwrap(), iter.next().unwrap(), iter.next().unwrap(), iter.next().unwrap(), iter.next().unwrap()];
-        Ok(Self {
+		Ok(Self {
 			hand
 		})
-    }
+	}
 }
 
 impl PartialOrd for Hand {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+	fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
 		// if they don't have the same hand type, we can just order on that
-        let type_cmp = self.handtype().cmp(&other.handtype());
+		let type_cmp = self.handtype().cmp(&other.handtype());
 		if !type_cmp.is_eq() {
 			// if they don't have the same hand type, we can just order on that
 			Some(type_cmp.reverse())
@@ -98,7 +95,7 @@ impl PartialOrd for Hand {
 				}
 			})
 		}
-    }
+	}
 }
 
 impl Hand {
@@ -171,9 +168,9 @@ impl JokerHand {
 }
 
 impl PartialOrd for JokerHand {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+	fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
 		// if they don't have the same hand type, we can just order on that
-        let type_cmp = self.handtype().cmp(&other.handtype());
+		let type_cmp = self.handtype().cmp(&other.handtype());
 		if !type_cmp.is_eq() {
 			// if they don't have the same hand type, we can just order on that
 			Some(type_cmp.reverse())
@@ -191,10 +188,8 @@ impl PartialOrd for JokerHand {
 				}
 			})
 		}
-    }
+	}
 }
-
-
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum HandType {
@@ -210,12 +205,12 @@ pub enum HandType {
 
 #[aoc_generator(day7)]
 pub fn gen(input: &str) -> Vec<(Hand, usize)> {
-        input.split('\n').map(|line| {
-			let (hand, bid) = line.split_once(' ').unwrap();
-			let hand = hand.parse().unwrap();
-			let bid = bid.parse().unwrap();
-			(hand, bid)
-		}).collect()
+	input.split('\n').map(|line| {
+		let (hand, bid) = line.split_once(' ').unwrap();
+		let hand = hand.parse().unwrap();
+		let bid = bid.parse().unwrap();
+		(hand, bid)
+	}).collect()
 }
 
 #[aoc(day7, part1)]
@@ -234,9 +229,9 @@ pub fn part2(input: &[(Hand, usize)]) -> usize {
 
 #[cfg(test)]
 mod tests {
-    use std::cmp::Ordering;
+	use std::cmp::Ordering;
 
-    use super::*;
+	use super::*;
 
 	#[test]
 	pub fn handparsing() {
@@ -265,5 +260,5 @@ mod tests {
 	aoc_tests!(day 7 part1, puzzle=241344943; gen:part1);
 
 	aoc_tests!(day 7 sample2, EXAMPLE=5905; gen:part2);
-	//aoc_tests!(day 7 part2, puzzle=0; gen:part2);
+	aoc_tests!(day 7 part2, puzzle=243101568; gen:part2);
 }
